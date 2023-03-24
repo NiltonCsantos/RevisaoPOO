@@ -1,71 +1,94 @@
 import br.edu.revisaopoo.*;
 
-import java.util.ArrayList;
+
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
 
-        IOperacoes operacoes = new Soma();
         Calculadora calculadora = new Calculadora();
-        Validacao validacao= new Validacao();
+        ValidacaoDivisao validacaoDivisao = new ValidacaoDivisao();
         DadosOperacoes dadosOperacoes= new DadosOperacoes();
 
         Scanner leia = new Scanner(System.in);
-        ArrayList<Double> list = new ArrayList<>();
 
         String informacaoOperacao;
         boolean condicao = false;
         double result;
-        int i = 0;
+
 
 
         while (!condicao) {
 
             System.out.println("-----Calculadora-----");
-            System.out.println("(1)-Somar");
-            System.out.println("(2)-Subtrair");
-            System.out.println("(3)-Multiplicar");
-            System.out.println("(4)-Dividir");
-            System.out.println("(5)-sair");
-            int opcao = leia.nextInt();
+//            System.out.println("(1)-Somar");
+//            System.out.println("(2)-Subtrair");
+//            System.out.println("(3)-Multiplicar");
+//            System.out.println("(4)-Dividir");
+//            System.out.println("(5)-Potência");
+//            System.out.println("(6)-Raiz");
+//            System.out.println("(7)-Sair");
+              String entrada = leia.next();
 
-            if (opcao == 1 || opcao == 2 || opcao == 3 || opcao == 4) {
+              String[] numeros=entrada.split(";");
 
-                System.out.println("Digite um número: ");
-                double num1= leia.nextDouble();
-                System.out.println("Digite outro número: ");
-                double num2= leia.nextDouble();
 
+
+            for (int i = 0; i < numeros.length; i++) {
+
+                System.out.println(numeros[i]);
+
+            }
+
+            if (numeros.length>3) {
+
+                System.out.println("Entrada inválida");
+
+            } else if (entrada.equals("0")) {
+                condicao=true;
+                break;
+            } else {
+
+                System.out.println("Oi");
 
                 try {
 
-                    validacao.validar(opcao, num2);
 
-                    result=calculadora.executar(opcao, num1, num2);
+                    int op= Integer.parseInt(numeros[1]);
+                    int n1= Integer.parseInt(numeros[0]);
+                    int n2= Integer.parseInt(numeros[2]);
 
-                    informacaoOperacao="Opção: "+opcao+" num1: "+num1+ " num2: "+num2+ " resultado: " +result;
+                    validacaoDivisao.validar(op, n2);
+                    ValidacaoRaiz.validar(op, n2);
+
+                    result=calculadora.executar(op, n1, n2);
+
+                    informacaoOperacao=n1+";"+op+";"+ n2 +"="+result;
 
                     dadosOperacoes.pegarOperacoes(informacaoOperacao);
 
-                }catch (RuntimeException e){
+                }catch (ValidacaoCalculadoraException e){
 
                     System.out.println(e.getMessage());
 
                 }
 
-            }else if(opcao==5){
-                condicao = true;
-            }else{
-                System.out.println("Opção inválida!");
-            }
 
+            }
         }
 
         System.out.println("Operações realizadas: ");
         dadosOperacoes.listarDados();
+        leia.close();
+
 
     }
 
-
 }
+
+
+
+
+
+
+

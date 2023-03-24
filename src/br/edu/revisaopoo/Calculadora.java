@@ -1,7 +1,5 @@
 package br.edu.revisaopoo;
 
-import br.edu.revisaopoo.IOperacoes;
-
 public class Calculadora  {
 
 
@@ -13,11 +11,9 @@ public class Calculadora  {
 
                 return calcular(new Soma(), num1, num2);
 
-
             case 2:
 
                 return  calcular(new Subtracao(), num1, num2);
-
 
             case 3:
 
@@ -29,8 +25,13 @@ public class Calculadora  {
 
             case 5:
 
-                break;
+                return calcular(new Potenciacao(), num1, num2);
 
+            case 6:
+                return  calcular(new Raiz(), num1, num2);
+
+            case 7:
+                break;
 
         }
 
